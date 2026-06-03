@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaHeart } from "react-icons/fa";
 import BookingModal from "./BookingModal";
 import PropertyDetailsModal from "./PropertyDetailsModal";
+import { FavouritesContext } from "./context/FavouritesContext";
+import { useNavigate } from "react-router-dom";
 function PropertyCard({property}) {
-    const [liked, setLiked] = useState(false);
+    const { favourites, addFavourite } = useContext(FavouritesContext);
+    const navigate = useNavigate();
+    const liked = favourites.some(
+  (item) => item.id === property.id
+);
     const [message, setMessage] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
@@ -15,18 +21,20 @@ function PropertyCard({property}) {
                 src={property.image}
                 alt={property.title}
                 className="w-full h-56 object-cover cursor-pointer"
-                onClick={() => setShowDetails(true)}
+                onClick={() => navigate(`/property/${property.id}`)}
                 />
 
                 <FaHeart
                 size={24}
                 onClick={() => {
+                    addFavourite(property);
+                    
                     if (!liked) {
-                        setMessage("❤️ Added to Favorites");
+                        setMessage("❤️ Added to Favourites");
                     } else {
-                        setMessage("💔 Removed from Favorites");
+                        setMessage("💔 Removed from Favourites");
                     }
-                    setLiked(!liked);
+                    
                     setTimeout(() => {
                         setMessage("");
                     }, 2000);

@@ -1,17 +1,44 @@
 import { FaUserCircle, FaMoon, FaSun } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Navbar( { searchTerm, setSearchTerm, darkMode, setDarkMode, }) {
     return (
         <nav className={`flex justify-between items-center px-8 py-4 shadow-md sticky top-0 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
         }`}
         >
-            <h1 className="text-3xl font-bold text-red-500">
-                Airbnb
-            </h1>
+            <Link
+to="/"
+className="text-3xl font-bold text-red-500"
+>
+    Airbnb
+</Link>
 
-            <div className={`flex items-center border rounded-full px-4 py-2 shadow-sm ${
-  darkMode ? "border-gray-500" : ""
+<div className="flex gap-6 font-medium">
+    <Link
+    to="/"
+    className="hover:text-red-500"
+    >
+        Home
+    </Link>
+
+    <Link
+    to="/favorites"
+    className="hover:text-red-500"
+    >
+        Favorites
+    </Link>
+
+    <Link
+    to="/about"
+    className="hover:text-red-500"
+    >
+        About
+    </Link>
+</div>
+
+<div className={`flex items-center border rounded-full px-4 py-2 shadow-sm ${
+darkMode ? "border-gray-500" : ""
 }`}>
                 <input
                 type="text"
