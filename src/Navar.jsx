@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 
 function Navbar( { searchTerm, setSearchTerm, darkMode, setDarkMode, }) {
     return (
-        <nav className={`flex justify-between items-center px-8 py-4 shadow-md sticky top-0 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+        <nav className={`flex justify-between items-center px-4 md:px-8 py-4 shadow-md sticky top-0 ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
         }`}
         >
             <Link
 to="/"
-className="text-3xl font-bold text-red-500"
+className="text-xl md:text-3xl font-bold text-red-500"
 >
     Airbnb
 </Link>
@@ -37,18 +37,21 @@ className="text-3xl font-bold text-red-500"
     </Link>
 </div>
 
-<div className={`flex items-center border rounded-full px-4 py-2 shadow-sm ${
-darkMode ? "border-gray-500" : ""
-}`}>
-                <input
-                type="text"
-                placeholder="Search destinations"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className={`outline-none bg-transparent ${darkMode ? "text-white" : "text-black"}`}
-                />
-                <IoSearch className="text-red-500 ml-2" />
-            </div>
+<div className={`hidden md:flex items-center border rounded-full px-4 py-2 shadow-sm ${
+    darkMode ? "border-gray-500" : ""
+  }`}
+>
+  <input
+    type="text"
+    placeholder="Search destinations"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className={`outline-none bg-transparent ${
+      darkMode ? "text-white" : "text-black"
+    }`}
+  />
+  <IoSearch className="text-red-500 ml-2" />
+</div>
 
             <div className="flex items-center gap-4">
                 <button
