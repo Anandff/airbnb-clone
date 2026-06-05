@@ -2,6 +2,21 @@ import { useState } from "react";
 
 function BookingModal({ isOpen, onClose, property }) {
   const [name, setName] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const nights =
+  checkIn && checkOut
+    ? Math.ceil(
+        (new Date(checkOut) - new Date(checkIn)) /
+          (1000 * 60 * 60 * 24)
+      )
+    : 0;
+    const pricePerNight = Number(
+  property.price.replace(/[₹,]/g, "")
+);
+
+const totalPrice =
+  nights > 0 ? nights * pricePerNight : 0;
 
   if (!isOpen) return null;
 
@@ -9,8 +24,13 @@ function BookingModal({ isOpen, onClose, property }) {
     e.preventDefault();
 
     alert(
-      `Booking Confirmed!\n\nGuest: ${name}\nProperty: ${property.title}`
-    );
+  `Booking Confirmed!
+
+Guest: ${name}
+Property: ${property.title}
+Nights: ${nights}
+Total: ₹${totalPrice}`
+);
 
     setName("");
     onClose();
@@ -47,15 +67,19 @@ function BookingModal({ isOpen, onClose, property }) {
         />
 
         <input
-          type="date"
-          className="border p-2 w-full mb-4"
-          required
+        type="date"
+        className="border p-2 w-full mb-4"
+        value={checkIn}
+        onChange={(e) => setCheckIn(e.target.value)}
+        required
         />
 
         <input
-          type="date"
-          className="border p-2 w-full mb-4"
-          required
+        type="date"
+        className="border p-2 w-full mb-4"
+        value={checkOut}
+        onChange={(e) => setCheckOut(e.target.value)}
+        required
         />
 
         <input
@@ -66,7 +90,16 @@ function BookingModal({ isOpen, onClose, property }) {
           required
         />
 
-        <button
+        <div className="mb-4 p-3 bg-gray-100 rounded">
+          <p>
+            Nights: <strong>{nights}</strong>
+            </p>
+            
+            <p>
+              Total Price: <strong>₹{totalPrice}</strong>
+              </p>
+              </div>
+              <button
           type="submit"
           className="bg-red-500 text-white px-4 py-2 rounded"
         >
