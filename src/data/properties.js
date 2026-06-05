@@ -6,7 +6,22 @@ const properties = [
     category: "Beach",
     price: "₹5,000",
     rating: "4.9",
-    image: "https://picsum.photos/600/400?random=1"
+    image: "https://picsum.photos/600/400?random=1",
+    description: "Beautiful beach house with ocean views and modern amenities.",
+    host: "Anand",
+
+    guests: 4,
+    
+    bedrooms: 2,
+    
+    bathrooms: 2,
+    
+    amenities: [
+  "WiFi",
+  "Swimming Pool",
+  "Kitchen",
+  "Free Parking"
+]
   },
   {
     id: 2,

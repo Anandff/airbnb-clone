@@ -42,8 +42,51 @@ function PropertyPage() {
       </p>
 
       <p className="text-2xl font-bold mt-4">
-        {property.price}/night
-      </p>
+  {property.price}/night
+</p>
+
+<div className="mt-6">
+  <h2 className="text-xl font-bold">
+    Hosted by {property.host || "Anand"}
+  </h2>
+
+  <p className="mt-2">
+    👥 {property.guests || 4} Guests
+  </p>
+
+  <p>
+    🛏️ {property.bedrooms || 2} Bedrooms
+  </p>
+
+  <p>
+    🚿 {property.bathrooms || 2} Bathrooms
+  </p>
+
+  <p className="mt-4">
+    {property.description ||
+      `Enjoy a wonderful stay at ${property.title} in ${property.location}. Perfect for travelers looking for comfort and convenience.`}
+  </p>
+</div>
+
+<h2 className="text-2xl font-bold mt-8">
+  Amenities
+</h2>
+
+<div className="grid grid-cols-2 gap-3 mt-4">
+  {(property.amenities || [
+    "WiFi",
+    "Free Parking",
+    "Kitchen",
+    "Air Conditioning",
+  ]).map((item, index) => (
+    <div
+      key={index}
+      className="border p-3 rounded-lg"
+    >
+      ✅ {item}
+    </div>
+  ))}
+</div>
       <h2 className="text-2xl font-bold mt-10 mb-4">
         Similar Properties
         </h2>
