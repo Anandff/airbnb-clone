@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { useState, useEffect } from "react"; 
 import Navbar from "./Navar";
 import Hero from "./Hero";
 import Stats from "./Stats";
@@ -13,7 +13,19 @@ import About from "./pages/About";
 function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+  const savedTheme = localStorage.getItem("darkMode");
+
+  return savedTheme
+    ? JSON.parse(savedTheme)
+    : false;
+});
+useEffect(() => {
+  localStorage.setItem(
+    "darkMode",
+    JSON.stringify(darkMode)
+  );
+}, [darkMode]);
   const [selectedCategory, setSelectedCategory] =useState("All");
   const filteredProperties = properties.filter((property) => {
   const matchesSearch = property.location

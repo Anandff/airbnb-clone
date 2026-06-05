@@ -17,11 +17,22 @@ function BookingModal({ isOpen, onClose, property }) {
 
 const totalPrice =
   nights > 0 ? nights * pricePerNight : 0;
+  const isValidBooking =
+  !checkIn ||
+  !checkOut ||
+  new Date(checkOut) > new Date(checkIn);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  if (!isValidBooking) {
+    alert(
+      "Check-out date must be after check-in date."
+    );
+    return;
+  }
 
     alert(
   `Booking Confirmed!
@@ -99,9 +110,19 @@ Total: ₹${totalPrice}`
               Total Price: <strong>₹{totalPrice}</strong>
               </p>
               </div>
+              {!isValidBooking && checkIn && checkOut && (
+  <p className="text-red-500 mb-3">
+    Check-out date must be after check-in date.
+  </p>
+)}
               <button
-          type="submit"
-          className="bg-red-500 text-white px-4 py-2 rounded"
+  type="submit"
+  disabled={!isValidBooking}
+          className={`px-4 py-2 rounded text-white ${
+  isValidBooking
+    ? "bg-red-500"
+    : "bg-gray-400 cursor-not-allowed"
+}`}
         >
           Confirm Booking
         </button>
