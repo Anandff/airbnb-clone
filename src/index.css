@@ -3,3 +3,247 @@ html,
 body {
   overflow-x: hidden;
 }
+.travel-logo {
+  background: linear-gradient(
+    90deg,
+    #ff385c,
+    #ff7a59,
+    #ffd166,
+    #ff385c
+  );
+
+  background-size: 300% auto;
+  background-clip: text;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation:
+    gradientMove 4s linear infinite,
+    logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes gradientMove {
+  to {
+    background-position: 300% center;
+  }
+}
+
+@keyframes logoFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+/* Floating Travel Background */
+
+.plane,
+.cloud,
+.globe,
+.compass,
+.mountain,
+.palm,
+.sparkle {
+  position: absolute;
+  opacity: 0.90;
+}
+
+/* PLANES */
+
+.plane {
+  font-size: 42px;
+}
+
+.plane1 {
+  top: 10%;
+  animation: flyRight 25s linear infinite;
+}
+
+.plane2 {
+  top: 45%;
+  animation: flyLeft 30s linear infinite;
+}
+
+.plane3 {
+  top: 75%;
+  animation: flyDiagonal 35s linear infinite;
+}
+
+/* CLOUDS */
+
+.cloud {
+  font-size: 70px;
+}
+
+.cloud1 {
+  top: 8%;
+  left: 10%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.cloud2 {
+  top: 35%;
+  left: 75%;
+  animation: float 10s ease-in-out infinite;
+}
+
+.cloud3 {
+  top: 70%;
+  left: 20%;
+  animation: float 12s ease-in-out infinite;
+}
+
+/* GLOBE */
+
+.globe {
+  bottom: 40px;
+  right: 40px;
+  font-size: 60px;
+  animation: spin 25s linear infinite;
+}
+
+/* COMPASS */
+
+.compass {
+  top: 55%;
+  right: 15%;
+  font-size: 55px;
+  animation: spin 30s linear infinite;
+}
+
+/* MOUNTAINS */
+
+.mountain {
+  font-size: 70px;
+}
+
+.mountain1 {
+  left: 8%;
+  bottom: 10%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.mountain2 {
+  right: 20%;
+  bottom: 15%;
+  animation: float 10s ease-in-out infinite;
+}
+
+/* PALM TREES */
+
+.palm {
+  font-size: 60px;
+}
+
+.palm1 {
+  top: 20%;
+  left: 85%;
+  animation: float 10s ease-in-out infinite;
+}
+
+.palm2 {
+  top: 55%;
+  left: 5%;
+  animation: float 12s ease-in-out infinite;
+}
+
+/* SPARKLES */
+
+.sparkle {
+  font-size: 24px;
+}
+
+.sparkle1 {
+  top: 20%;
+  left: 40%;
+  animation: twinkle 3s infinite;
+}
+
+.sparkle2 {
+  top: 60%;
+  left: 65%;
+  animation: twinkle 4s infinite;
+}
+
+.sparkle3 {
+  top: 15%;
+  right: 20%;
+  animation: twinkle 5s infinite;
+}
+
+/* ANIMATIONS */
+
+@keyframes flyRight {
+  from {
+    transform: translateX(-200px);
+  }
+
+  to {
+    transform: translateX(120vw);
+  }
+}
+
+@keyframes flyLeft {
+  from {
+    transform: translateX(120vw);
+  }
+
+  to {
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes flyDiagonal {
+  from {
+    transform: translate(-200px, 200px);
+  }
+
+  to {
+    transform: translate(120vw, -200px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.05;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 0.05;
+  }
+}

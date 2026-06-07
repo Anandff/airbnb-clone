@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import Navbar from "./Navar";
 import Hero from "./Hero";
 import Stats from "./Stats";
@@ -10,91 +10,163 @@ import { Routes, Route } from "react-router-dom";
 import PropertyPage from "./pages/PropertyPage";
 import Favourites from "./pages/Favourites";
 import About from "./pages/About";
+import BookingHistory from "./pages/BookingHistory";
+import BackgroundParticles from "./BackgroundParticles";
+
 function App() {
-
   const [searchTerm, setSearchTerm] = useState("");
+
   const [darkMode, setDarkMode] = useState(() => {
-  const savedTheme = localStorage.getItem("darkMode");
+    const savedTheme = localStorage.getItem("darkMode");
 
-  return savedTheme
-    ? JSON.parse(savedTheme)
-    : false;
-});
-useEffect(() => {
-  localStorage.setItem(
-    "darkMode",
-    JSON.stringify(darkMode)
+    return savedTheme
+      ? JSON.parse(savedTheme)
+      : false;
+  });
+
+  const [sortOption, setSortOption] = useState("default");
+
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
+
+  useEffect(() => {
+    localStorage.setItem(
+      "darkMode",
+      JSON.stringify(darkMode)
+    );
+  }, [darkMode]);
+
+  const filteredProperties = properties.filter(
+    (property) => {
+      const matchesSearch = property.location
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      const matchesCategory =
+        selectedCategory === "All" ||
+        property.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    }
   );
-}, [darkMode]);
-  const [selectedCategory, setSelectedCategory] =useState("All");
-  const filteredProperties = properties.filter((property) => {
-  const matchesSearch = property.location
-    .toLowerCase()
-    .includes(searchTerm.toLowerCase());
 
-  const matchesCategory =
-    selectedCategory === "All" ||
-    property.category === selectedCategory;
+  const sortedProperties = [
+    ...filteredProperties,
+  ].sort((a, b) => {
+    if (sortOption === "price-low") {
+      return (
+        Number(a.price.replace(/[₹,]/g, "")) -
+        Number(b.price.replace(/[₹,]/g, ""))
+      );
+    }
 
-  return matchesSearch && matchesCategory;
-});
+    if (sortOption === "price-high") {
+      return (
+        Number(b.price.replace(/[₹,]/g, "")) -
+        Number(a.price.replace(/[₹,]/g, ""))
+      );
+    }
+
+    if (sortOption === "rating") {
+      return Number(b.rating) - Number(a.rating);
+    }
+
+    return 0;
+  });
+
   return (
-  <Routes>
-    <Route
-      path="/"
-      element={
-        <div
-          className={
-            darkMode
-              ? "bg-gray-900 text-white min-h-screen"
-              : "bg-white text-black min-h-screen"
-          }
-        >
-          <Navbar
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-          />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div
+            className={
+              darkMode
+                ? "bg-gray-900 text-white min-h-screen"
+                : "bg-white text-black min-h-screen"
+            }
+          >
+            <BackgroundParticles />
+            <Navbar
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+            />
 
-          <Hero />
+            <div className="relative z-10">
+              <Hero />
+              </div>
 
-          <Stats />
+            <Stats />
 
-          <Categories
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
+            <Categories
+              selectedCategory={selectedCategory}
+              setSelectedCategory={
+                setSelectedCategory
+              }
+            />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
-            {filteredProperties.map((property) => (
-              <PropertyCard
-                key={property.id}
-                property={property}
-              />
-            ))}
+            <div className="px-8 mt-4">
+              <select
+                value={sortOption}
+                onChange={(e) =>
+                  setSortOption(e.target.value)
+                }
+                className="border p-2 rounded-lg text-black"
+              >
+                <option value="default">
+                  Sort By
+                </option>
+
+                <option value="price-low">
+                  Price Low → High
+                </option>
+
+                <option value="price-high">
+                  Price High → Low
+                </option>
+
+                <option value="rating">
+                  Rating High → Low
+                </option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8">
+              {sortedProperties.map((property) => (
+                <PropertyCard
+                  key={property.id}
+                  property={property}
+                />
+              ))}
+            </div>
+
+            <Footer />
           </div>
+        }
+      />
 
-          <Footer />
-        </div>
-      }
-    />
+      <Route
+        path="/favorites"
+        element={<Favourites />}
+      />
 
-    <Route
-      path="/favorites"
-      element={<Favourites />}
-    />
+      <Route
+        path="/about"
+        element={<About />}
+      />
 
-    <Route
-      path="/about"
-      element={<About />}
-    />
-    <Route
-    path="/property/:id"
-    element={<PropertyPage />}
-    />
-  </Routes>
-);
+      <Route
+        path="/property/:id"
+        element={<PropertyPage />}
+      />
+      <Route
+  path="/booking-history"
+  element={<BookingHistory />}
+/>
+    </Routes>
+  );
 }
 
 export default App;

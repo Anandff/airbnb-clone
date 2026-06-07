@@ -10,10 +10,10 @@ function Navbar( { searchTerm, setSearchTerm, darkMode, setDarkMode, }) {
         }`}
         >
             <Link
-to="/"
-className="text-xl md:text-3xl font-bold text-red-500"
+  to="/"
+  className="travel-logo text-2xl md:text-4xl font-extrabold"
 >
-    Airbnb
+  ✈ Airbnb
 </Link>
 
 <div className="hidden md:flex gap-6 font-medium">
@@ -30,6 +30,13 @@ className="text-xl md:text-3xl font-bold text-red-500"
     >
         Favorites
     </Link>
+
+    <Link
+  to="/booking-history"
+  className="hover:text-red-500"
+>
+  Bookings
+</Link>
 
     <Link
     to="/about"

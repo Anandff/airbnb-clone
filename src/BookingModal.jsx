@@ -43,7 +43,19 @@ Nights: ${nights}
 Total: ₹${totalPrice}`
 );
 
-    setName("");
+    const existingBookings =
+  JSON.parse(localStorage.getItem("bookings")) || [];
+
+existingBookings.push({
+  property: property.title,
+  name,
+});
+
+localStorage.setItem(
+  "bookings",
+  JSON.stringify(existingBookings)
+);
+setName("");
     onClose();
   };
 
